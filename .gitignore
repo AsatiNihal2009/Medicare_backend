@@ -1,0 +1,69 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### Properties file ###
+*.properties
+!bootstrap.properties
+application.properties
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+*.attach**
+### Log folder ###
+/logs
+
+### Application files ###
+*.pdf
+*.xlsx
+
+### Lombok config ###
+lombok.config
+
+### For target file ###
+/target/**
+
+### Flyway ###
+**/src/main/resources/db
+
+### Fcm configuration file ###
+**/src/main/resources/google
+
+### Log files ###
+*.log
+*.gz
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### Configuartion files ###
+.config/
+
+### VS Code ###
+.vscode/
+
+### Gradle ###
+*.gradle
+build/
+gradle*
+
+### Maven ###
+.mvn/*
