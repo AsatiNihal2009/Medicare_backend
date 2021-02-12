@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,12 +41,12 @@ public class Cart {
 	private Long purchasedDate;
 	
 	@OneToMany(mappedBy = "cart",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
+			cascade = CascadeType.ALL
 			)
 	private List<Product> product;
 
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     @MapsId
+    @JsonIgnore
 	private User user;
 }
