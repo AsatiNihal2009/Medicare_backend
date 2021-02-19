@@ -12,4 +12,8 @@ public interface ProductService {
 
 	ResponseEntity<?> toggleProduct(boolean toggle, String productName);
 
+	ResponseEntity<?> fetchProduct(String productName);
+
+	ResponseEntity<?> fetchAllProductNames();
+
 }

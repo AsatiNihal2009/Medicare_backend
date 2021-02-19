@@ -34,11 +34,11 @@ public class ProductServiceImpl implements ProductService {
 	public ResponseEntity<?> addProduct(ProductDTO productDto) {
 		Product product = new Product();
 
-		if (productRepository.existsByItemName(productDto.getItemName())) {
-			return ResponseEntity.badRequest().body(new MessageResponse(productDto.getItemName() + " already exist"));
+		if (productRepository.existsByItemName(productDto.getProductName())) {
+			return ResponseEntity.badRequest().body(new MessageResponse(productDto.getProductName() + " already exist"));
 		}
 
-		product.setItemName(productDto.getItemName());
+		product.setItemName(productDto.getProductName());
 		product.setQuantity(productDto.getQuantity());
 		product.setItemTotal(productDto.getItemTotal());
 		product.setAge(Age.valueOf(productDto.getAge()));
@@ -46,8 +46,8 @@ public class ProductServiceImpl implements ProductService {
 		product.setToggle(true);
 
 		Category category = new Category();
-		if (categoryRepository.existsByCategoryName(ECategory.valueOf(productDto.getCategoryName()))) {
-			category = categoryRepository.findByCategoryName(ECategory.valueOf(productDto.getCategoryName()));
+		if (categoryRepository.existsByCategoryName(ECategory.valueOf(productDto.getCategory()))) {
+			category = categoryRepository.findByCategoryName(ECategory.valueOf(productDto.getCategory()));
 			product.setCategory(category);
 
 			List<Product> list = new ArrayList<>();
@@ -71,19 +71,17 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ResponseEntity<?> editProduct(ProductDTO productDto) {
 		Product product = null;
-		if (productRepository.existsByItemName(productDto.getItemName())) {
-
-			product = productRepository.findByItemName(productDto.getItemName());
+		if (productRepository.existsByItemName(productDto.getProductName())) {
+			product = productRepository.findByItemName(productDto.getProductName());
 			product.setItemTotal(productDto.getItemTotal());
 			product.setQuantity(productDto.getQuantity());
+			product.setState(State.valueOf(productDto.getState()));
+			product.setAge(Age.valueOf(productDto.getAge()));
 			productRepository.save(product);
-
+			return ResponseEntity.ok("Update Successfully");
 		} else {
-			addProduct(productDto);
+			return ResponseEntity.notFound().build();
 		}
-
-		return ResponseEntity.ok("Update Successfully");
-
 	}
 
 	@Override
@@ -98,6 +96,20 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+
+	@Override
+	public ResponseEntity<?> fetchAllProductNames() {
+		List<String>names=productRepository.findAllProductName();
+		return ResponseEntity.ok(names);
+	}
+
+	@Override
+	public ResponseEntity<?> fetchProduct(String productName) {
+		if(productRepository.existsByItemName(productName))
+		   return ResponseEntity.ok(productRepository.findByItemName(productName));
+		else 
+			return ResponseEntity.noContent().build();
 	}
 
 }

@@ -10,12 +10,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.medicare.exceptions.AuthEntryPointJwt;
 import com.medicare.security.AuthTokenFilter;
 import com.medicare.services.impl.UserDetailsServiceImpl;
@@ -46,6 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring()
+        .mvcMatchers("/v2/api-docs", "/configuration/ui","/configuration/**", "/swagger-resources/**", "/swagger-ui.html", "/api-docs/**");	
+	}
 	
 	@Bean
 	@Override
@@ -65,7 +70,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-
 	
 	
 }

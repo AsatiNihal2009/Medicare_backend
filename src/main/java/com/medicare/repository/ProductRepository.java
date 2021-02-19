@@ -26,4 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	@Modifying
 	@Query(value = "update product set cart_user_id=NULL where item_name=?1",nativeQuery = true)
 	void removeProductFromCart(String productName);
+	
+	@Query(value = "select item_name from product",nativeQuery = true)
+	List<String> findAllProductName();
 }

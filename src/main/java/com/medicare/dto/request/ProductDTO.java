@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductDTO {
 
-	private String categoryName;
+	private String category;
 	
 	private String age;
 	
@@ -17,7 +17,7 @@ public class ProductDTO {
 	
 	private int quantity;
 	
-	private String itemName;
+	private String productName;
 	
 	private double itemTotal;
 }

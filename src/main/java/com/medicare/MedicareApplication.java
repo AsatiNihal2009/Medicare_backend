@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MedicareApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MedicareApplication.class, args);
+		SpringApplication.run(MedicareApplication.class);
 	}
 
 }

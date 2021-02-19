@@ -18,7 +18,7 @@ import com.medicare.services.SearchAndFilterService;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/medicare/user")
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 public class SearchAndFilterController {
 
 	private SearchAndFilterService searchAndFilterService;
@@ -29,8 +29,10 @@ public class SearchAndFilterController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ProductDTO>> searchProductByName(@RequestParam(name = "product") String productName,
-			@RequestParam(name = "age") String age, @RequestParam(name = "state") String state,
+	public ResponseEntity<List<ProductDTO>> searchProductByName(
+			@RequestParam(name = "product") String productName,
+			@RequestParam(name = "age") String age, 
+			@RequestParam(name = "state") String state,
 			@RequestParam(name = "category") String category,
 			@RequestParam(name = "quantity") String quantity) {
 		return searchAndFilterService.searchFilterAndSortProduct(productName, age, state, category, Integer.valueOf(quantity));

@@ -20,7 +20,7 @@ import com.medicare.services.CartService;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/medicare/cart")
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 public class CartController {
 	
 	private CartService cartService;
@@ -36,7 +36,7 @@ public class CartController {
 	}
 
 	@GetMapping("{id}")
-	public Optional<Cart> getValueInCart(@PathVariable(value = "id") int id) {
+	public Optional<Cart> getProductsInCart(@PathVariable(value = "id") int id) {
 		return cartService.getCart(Long.valueOf(id));
 	}
 	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
