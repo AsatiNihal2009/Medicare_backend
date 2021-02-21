@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.medicare.entity.Cart;
 import com.medicare.services.CartService;
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/medicare/cart")
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
